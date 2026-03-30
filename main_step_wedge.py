@@ -57,15 +57,15 @@ def compute_ratio(exp_long, exp_short, gain_long, gain_short):
 # --- 2. ИНТЕРФЕЙС STREAMLIT ---
 
 st.set_page_config(layout="wide", page_title="HDR Endoscopy Simulator")
-st.title("🔬 Виртуальный стенд: Staggered HDR")
+st.title("Виртуальный стенд: Staggered HDR")
 
 with st.sidebar:
-    st.header("🗺️ Сцена и Оптика")
+    st.header("Сцена и Оптика")
     MAX_LUX_VAL = st.slider("Яркость в центре (Lux)", 1000, 300000, 150000, step=5000)
     LENS_COEFFICIENT = st.slider("Ослабление объектива (F-stop)", 1.0, 64.0, 10.0, step=1.0)
     STEPS = st.slider("Количество ступеней ёлочки", 5, 20, 12)
 
-    st.header("📸 Параметры Сенсора")
+    st.header("Параметры Сенсора")
     TARGET_RATIO = st.slider("Желаемый Ratio (X:1)", 2, 64, 16)
     EXP_LONG = st.number_input("Экспозиция Long (строк)", min_value=2, value=32, step=1)
     
@@ -73,8 +73,8 @@ with st.sidebar:
     GAIN_LONG = st.slider("Усиление (Gain) Long", 1.0, 10.0, 1.0, step=0.1)
     GAIN_SHORT = st.slider("Усиление (Gain) Short", 1.0, 10.0, 1.0, step=0.1)
     
-    st.header("🎬 Симуляция")
-    run_simulation = st.button("🚀 Запустить динамическую сцену")
+    st.header("Симуляция")
+    run_simulation = st.button("Запустить динамическую сцену")
 
 # --- 3. ФУНКЦИЯ ОТРИСОВКИ ---
 
@@ -93,7 +93,7 @@ def run_render(current_lux):
     frame_hdr = reconstruct_hdr(frame_long, frame_short, total_ratio)
 
     # Визуализация
-    status_placeholder.info(f"📐 **Состояние:** Яркость = `{int(current_lux)}` Lux | Short = `{exp_short_lines}` строк | Ratio = `{total_ratio:.2f}`")
+    status_placeholder.info(f" **Состояние:** Яркость = `{int(current_lux)}` Lux | Short = `{exp_short_lines}` строк | Ratio = `{total_ratio:.2f}`")
     
     with col1:
         fig_lux, ax_lux = plt.subplots(figsize=(5, 4))
@@ -149,7 +149,7 @@ else:
 
 # --- 5. ЭКСПОРТ ---
 st.divider()
-if st.button("💾 Сгенерировать файлы для Testbench"):
+if st.button("Сгенерировать файлы для Testbench"):
     np.savetxt("tb_frame_long.txt", f_long, fmt='%d')
     np.savetxt("tb_frame_short.txt", f_short, fmt='%d')
     np.savetxt("tb_frame_hdr_ref.txt", f_hdr, fmt='%d')
